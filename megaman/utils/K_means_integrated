@@ -1,5 +1,7 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 """
-Created on  Wed Aug 12 13:07:06 2017
+Created on Thu Aug 19 21:34:40 2017
 
 @author: Hui Pang
 """
@@ -37,9 +39,9 @@ def k_means_clustering(data,K,initial="klogk",multiplier=1,max_iter=300,tol=1e-4
     #labels = []
     n_iter=0
     # Run the main k-means algorithm
-    while not (_has_converged(data,K,centroids, old_centroids,tol) and n_iter>=max_iter):    
+    while not (_has_converged(data,K,centroids, old_centroids,tol or n_iter>=max_iter)):    
         n_iter+=1
-        old_centroids = centroids
+        old_centroids = np.copy(centroids)
         labels = get_labels(data, old_centroids)                
         centroids = get_centroids(data,K,labels,old_centroids,data_norms)        
     return labels
@@ -230,4 +232,4 @@ def k_means_pplus(X,K):
             centroids=np.vstack((centroids,X[centroid_index,:]))
     return centroids
 
-   
+    
